@@ -42,12 +42,12 @@ class _AddCart extends StatelessWidget {
     return IconButton(
       icon: isInCart ? const Icon(Icons.check) : const Icon(Icons.add),
       onPressed: () {
-        isInCart
-            ? null
-            : () {
-                var cart = context.read<CartModel>();
-                cart.add(item);
-              };
+        if (!isInCart) {
+          var cart = context.read<CartModel>();
+          cart.add(item);
+        } else {
+          null;
+        }
       },
     );
   }
