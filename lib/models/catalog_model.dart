@@ -26,6 +26,10 @@ class CatalogModel {
   UnmodifiableListView<String> get items {
     return UnmodifiableListView(itemNames);
   }
+
+  Item getByPosition(int position) {
+    return getById(position);
+  }
 }
 
 @immutable

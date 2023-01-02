@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:provider_basics/models/cartModel.dart';
-import 'package:provider_basics/models/catalogModel.dart';
+import 'package:provider_basics/models/cart_model.dart';
+import 'package:provider_basics/models/catalog_model.dart';
+import 'package:provider_basics/screens/cart.dart';
 import 'package:provider_basics/screens/home.dart';
 
 void main() {
@@ -16,14 +17,16 @@ class MyApp extends StatelessWidget {
     return Builder(builder: (context) {
       return MultiProvider(
         providers: [
-          ChangeNotifierProvider(
-            create: ((context) => CartModel()),
-          ),
+          ChangeNotifierProvider(create: ((context) => CartModel())),
           Provider(create: ((context) => CatalogModel()))
         ],
-        child: const MaterialApp(
+        child: MaterialApp(
+          initialRoute: '/',
+          routes: {
+            '/': ((context) => const Home()),
+            '/cart': (context) => const MyCart()
+          },
           debugShowCheckedModeBanner: false,
-          home: Home(),
         ),
       );
     });
