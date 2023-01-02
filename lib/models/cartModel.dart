@@ -1,31 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:provider_basics/models/catalogModel.dart';
 
 class CartModel extends ChangeNotifier {
-  final List<String> _itemNames = [
-    'Code Smell',
-    'Control Flow',
-    'Interpreter',
-    'Recursion',
-    'Sprint',
-    'Heisenbug',
-    'Spaghetti',
-    'Hydra Code',
-    'Off-By-One',
-    'Scope',
-    'Callback',
-    'Closure',
-    'Automata',
-    'Bit Shift',
-    'Currying',
-  ];
+  late CatalogModel _catalog;
 
-  void add(String newItem) {
-    _itemNames.add(newItem);
+  final List<int> _itemIds = [];
+
+  CatalogModel get catalog => _catalog;
+
+  set catalog(CatalogModel newCatalog) {
+    _catalog = newCatalog;
     notifyListeners();
   }
 
-  void removeAll() {
-    _itemNames.clear();
+  List<Item> get items => _itemIds.map((id) => _catalog.getById(id)).toList();
+
+  void add(Item item) {
+    _itemIds.add(item.id);
+    notifyListeners();
+  }
+
+  void remove(Item item) {
+    _itemIds.remove(item.id);
     notifyListeners();
   }
 }
